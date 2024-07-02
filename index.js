@@ -1,28 +1,19 @@
-let url = "https://api.weatherapi.com/v1/forecast.json?q=15206&days=1&key=a872efdb6a3848d9882203829242804"
+let submitButton = document.querySelector("#submitButton")
 
-fetch(url)
-.then(response => {
+async function fetchWeather(zipCode){
+  let url = `https://api.weatherapi.com/v1/forecast.json?q=${zipCode}&days=1&key=your key here`;
+  const response = await fetch(url)
+  const weatherReport = await response.json()
+  return weatherReport
+}
+
+
+submitButton.addEventListener('click', async () => {
+  let newZipCode = document.querySelector("#zipCodeInput").value
+  let weatherReport = await fetchWeather(newZipCode);
   
-  if (!response.ok)
-    {
-    
-    throw new Error("NAH THAT WAS NOT COOL")
+  for(k in weatherReport){
+  let weatherInfo = weatherReport[k]
+  console.log(weatherInfo)
   }
-  return response.json()
-})
-.then(data => {
-  let weatherObj = data 
-  
-  for (const property in weatherObj)
-    {
-      let weatherDetails = weatherObj[property]
-      
-      for (const b in weatherDetails){
-        let weatherReport = weatherDetails[b]
-        console.log(`${b}: ${weatherReport}`)
-      }
-    }
-})
-.catch(error => {
-  console.error("OH MY GOD SOMETHINGS WRONG: ", error)
-})
+});
