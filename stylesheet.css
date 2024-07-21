@@ -1,0 +1,9 @@
+
+
+.weather-Cards{
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: grey;
+    width: 20rem;
+    border-radius: 2rem;
+}
